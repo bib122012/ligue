@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ligue de Football — The Beautiful Game</title>
+    <title>Ligue de Football de la Wilaya de Tébessa | Elite Soccer League</title>
     
     <!-- Fonts: Bebas Neue (display, brutalist) + Cormorant Garamond (serif elegance) + JetBrains Mono (data) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,10 +16,8 @@
     <style>
         /* ============================================
            THEME VARIABLES — "TACTICAL NOIR"
-           Deep pitch green + chalk white + brass accents
            ============================================ */
         :root {
-            /* Dark Theme (default) — Stade de Nuit */
             --ink: #0a0e0a;
             --ink-2: #10160f;
             --ink-3: #181f17;
@@ -53,7 +51,6 @@
             --hero-overlay: linear-gradient(135deg, rgba(10,14,10,0.95) 0%, rgba(26,58,31,0.5) 60%, rgba(10,14,10,0.3) 100%);
         }
         
-        /* Light Theme — Stade de Jour */
         [data-theme="light"] {
             --ink: #f4f1e6;
             --ink-2: #ebe7d8;
@@ -106,7 +103,6 @@
             -webkit-font-smoothing: antialiased;
         }
         
-        /* Grain texture overlay */
         body::before {
             content: '';
             position: fixed;
@@ -118,7 +114,7 @@
         }
         
         /* ============================================
-           NAVBAR — Edge-to-edge, brutalist
+           NAVBAR — Edge-to-edge, responsive
            ============================================ */
         .navbar {
             position: fixed;
@@ -149,6 +145,7 @@
             align-items: center;
             gap: 16px;
             text-decoration: none;
+            flex-shrink: 0;
         }
         
         .brand-shield {
@@ -180,48 +177,51 @@
         
         .brand-wordmark .fr {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.35rem;
-            letter-spacing: 2px;
+            font-size: 1.1rem;
+            letter-spacing: 1.5px;
             color: var(--chalk);
             line-height: 1;
+            white-space: nowrap;
         }
         
         .brand-wordmark .en {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.6rem;
-            letter-spacing: 3px;
+            font-size: 0.55rem;
+            letter-spacing: 2.5px;
             color: var(--brass);
             text-transform: uppercase;
             font-weight: 600;
             margin-top: 3px;
+            white-space: nowrap;
         }
         
         .nav-list {
             display: flex;
             align-items: center;
-            gap: 4px;
+            gap: 2px;
             list-style: none;
         }
         
         .nav-list a {
             display: block;
-            padding: 10px 18px;
+            padding: 10px 16px;
             text-decoration: none;
             color: var(--chalk-dim);
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.68rem;
             font-weight: 600;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
             text-transform: uppercase;
             position: relative;
             transition: color 0.3s ease;
+            white-space: nowrap;
         }
         
         .nav-list a::before {
             content: '';
             position: absolute;
-            left: 18px;
-            right: 18px;
+            left: 16px;
+            right: 16px;
             bottom: 6px;
             height: 1px;
             background: var(--brass);
@@ -243,12 +243,13 @@
         .nav-tools {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            flex-shrink: 0;
         }
         
-        .search-trigger {
-            width: 40px;
-            height: 40px;
+        .theme-btn, .search-trigger {
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -256,32 +257,11 @@
             background: transparent;
             color: var(--chalk-dim);
             cursor: pointer;
-            border-radius: 0;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
         }
         
-        .search-trigger:hover {
-            border-color: var(--brass);
-            color: var(--brass);
-            background: var(--brass-dim);
-        }
-        
-        .theme-btn {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid var(--line-strong);
-            background: transparent;
-            color: var(--chalk-dim);
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-        
-        .theme-btn:hover {
+        .theme-btn:hover, .search-trigger:hover {
             border-color: var(--brass);
             color: var(--brass);
             background: var(--brass-dim);
@@ -291,17 +271,18 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            padding: 10px 22px;
+            padding: 10px 20px;
             background: var(--brass);
             color: var(--ink);
             text-decoration: none;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             letter-spacing: 2px;
             text-transform: uppercase;
             border: 1px solid var(--brass);
             transition: all 0.3s ease;
+            white-space: nowrap;
         }
         
         .btn-cta:hover {
@@ -310,8 +291,75 @@
             box-shadow: var(--glow-brass);
         }
         
+        /* Mobile menu toggle */
+        .menu-toggle {
+            display: none;
+            width: 38px;
+            height: 38px;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--line-strong);
+            background: transparent;
+            color: var(--chalk);
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        
+        /* Mobile nav overlay */
+        .nav-mobile {
+            display: none;
+            position: fixed;
+            top: 72px;
+            left: 0;
+            width: 100%;
+            background: var(--nav-bg-solid);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--brass-line);
+            padding: 24px 32px;
+            z-index: 999;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .nav-mobile.open {
+            display: flex;
+        }
+        
+        .nav-mobile a {
+            display: block;
+            padding: 14px 0;
+            text-decoration: none;
+            color: var(--chalk-dim);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            border-bottom: 1px solid var(--line);
+            transition: all 0.3s ease;
+        }
+        
+        .nav-mobile a:hover {
+            color: var(--brass);
+            padding-left: 8px;
+        }
+        
+        .nav-mobile .mobile-tools {
+            display: flex;
+            gap: 10px;
+            margin-top: 16px;
+        }
+        
+        .nav-mobile .mobile-tools .theme-btn,
+        .nav-mobile .mobile-tools .search-trigger {
+            flex: 1;
+            width: auto;
+            height: 44px;
+        }
+        
         /* ============================================
-           HERO — Editorial, asymmetric
+           HERO
            ============================================ */
         .hero {
             position: relative;
@@ -339,7 +387,6 @@
             background: var(--hero-overlay);
         }
         
-        /* Geometric pitch lines overlay */
         .hero-pitch {
             position: absolute;
             inset: 0;
@@ -420,7 +467,7 @@
         
         .hero-headline {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: clamp(5rem, 14vw, 11rem);
+            font-size: clamp(4rem, 10vw, 9rem);
             line-height: 0.85;
             letter-spacing: 2px;
             color: var(--chalk);
@@ -433,7 +480,7 @@
             font-style: italic;
             font-weight: 400;
             color: var(--brass);
-            font-size: 0.55em;
+            font-size: 0.5em;
             letter-spacing: 0;
             display: block;
             margin-top: 8px;
@@ -442,7 +489,7 @@
         
         .hero-sub {
             font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             font-style: italic;
             color: var(--chalk-dim);
             line-height: 1.5;
@@ -453,6 +500,7 @@
             display: flex;
             gap: 0;
             margin-top: 8px;
+            flex-wrap: wrap;
         }
         
         .btn-hero {
@@ -518,7 +566,6 @@
             background: var(--brass-dim);
         }
         
-        /* Right side — match card */
         .hero-right {
             display: flex;
             justify-content: flex-end;
@@ -699,7 +746,7 @@
         }
         
         /* ============================================
-           MARQUEE — Editorial ticker
+           MARQUEE
            ============================================ */
         .marquee {
             background: var(--brass);
@@ -739,7 +786,7 @@
         }
         
         /* ============================================
-           SECTIONS — Editorial structure
+           SECTIONS
            ============================================ */
         .section {
             padding: 120px 0;
@@ -800,12 +847,119 @@
         }
         
         /* ============================================
-           FIXTURES — List/table aesthetic
+           CLUBS / TEAMS GRID
            ============================================ */
-        .fixtures {
+        .clubs {
             background: var(--ink-2);
             border-top: 1px solid var(--line);
             border-bottom: 1px solid var(--line);
+        }
+        
+        .clubs-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 20px;
+        }
+        
+        .club-card {
+            background: var(--card);
+            border: 1px solid var(--line);
+            padding: 32px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .club-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, var(--brass-dim) 0%, transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .club-card:hover::before {
+            opacity: 1;
+        }
+        
+        .club-card:hover {
+            border-color: var(--brass-line);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-hard);
+        }
+        
+        .club-crest {
+            width: 64px;
+            height: 72px;
+            margin: 0 auto 16px;
+            background: var(--pitch);
+            clip-path: polygon(50% 0, 100% 15%, 100% 70%, 50% 100%, 0 70%, 0 15%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--chalk);
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.6rem;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .club-card:hover .club-crest {
+            background: var(--brass);
+            color: var(--ink);
+            transform: rotate(-8deg) scale(1.06);
+            box-shadow: var(--glow-brass);
+        }
+        
+        .club-name {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.15rem;
+            letter-spacing: 1px;
+            color: var(--chalk);
+            text-transform: uppercase;
+            line-height: 1.1;
+            margin-bottom: 4px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .club-city {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.6rem;
+            letter-spacing: 2px;
+            color: var(--chalk-mute);
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .club-badge {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 4px 10px;
+            background: var(--brass-dim);
+            border: 1px solid var(--brass-line);
+            color: var(--brass);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.55rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* ============================================
+           FIXTURES
+           ============================================ */
+        .fixtures {
+            background: var(--ink);
         }
         
         .fixture-list {
@@ -950,7 +1104,7 @@
         }
         
         /* ============================================
-           NEWS — Editorial grid
+           NEWS
            ============================================ */
         .news-grid {
             display: grid;
@@ -1097,7 +1251,7 @@
         }
         
         /* ============================================
-           GALLERY — Masonry editorial
+           GALLERY
            ============================================ */
         .gallery {
             background: var(--ink-2);
@@ -1140,7 +1294,6 @@
             z-index: 2;
         }
         
-        /* Grid spans */
         .g-a { grid-column: span 5; grid-row: span 3; }
         .g-b { grid-column: span 4; grid-row: span 2; }
         .g-c { grid-column: span 3; grid-row: span 2; }
@@ -1195,97 +1348,7 @@
         }
         
         /* ============================================
-           STANDINGS — Numeric table
-           ============================================ */
-        .standings {
-            background: var(--ink);
-        }
-        
-        .standings-table {
-            width: 100%;
-            border-collapse: collapse;
-        }
-        
-        .standings-table thead th {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            color: var(--brass);
-            text-transform: uppercase;
-            text-align: left;
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--brass-line);
-        }
-        
-        .standings-table thead th:first-child { text-align: center; width: 60px; }
-        .standings-table thead th:last-child { text-align: right; }
-        
-        .standings-table tbody tr {
-            border-bottom: 1px solid var(--line);
-            transition: background 0.3s ease;
-        }
-        
-        .standings-table tbody tr:hover {
-            background: var(--brass-dim);
-        }
-        
-        .standings-table tbody td {
-            padding: 20px;
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.85rem;
-            color: var(--chalk);
-        }
-        
-        .standings-table tbody td:first-child {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.8rem;
-            color: var(--chalk-mute);
-            text-align: center;
-            letter-spacing: 1px;
-        }
-        
-        .standings-table tbody tr:nth-child(1) td:first-child { color: var(--brass); }
-        
-        .standings-table tbody td:last-child {
-            text-align: right;
-            font-weight: 700;
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.6rem;
-            color: var(--brass);
-            letter-spacing: 1px;
-        }
-        
-        .st-team {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-        }
-        
-        .st-crest {
-            width: 32px;
-            height: 36px;
-            background: var(--pitch);
-            clip-path: polygon(50% 0, 100% 15%, 100% 70%, 50% 100%, 0 70%, 0 15%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--chalk);
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 0.9rem;
-            flex-shrink: 0;
-        }
-        
-        .st-name {
-            font-family: 'Bebas Neue', sans-serif;
-            font-size: 1.15rem;
-            letter-spacing: 1px;
-            color: var(--chalk);
-            text-transform: uppercase;
-        }
-        
-        /* ============================================
-           CTA — Full bleed
+           CTA
            ============================================ */
         .cta {
             position: relative;
@@ -1510,7 +1573,7 @@
         }
         
         /* ============================================
-           ANIMATIONS — Staggered page load
+           ANIMATIONS
            ============================================ */
         .reveal {
             opacity: 0;
@@ -1530,7 +1593,6 @@
         .d3 { animation-delay: 0.4s; }
         .d4 { animation-delay: 0.55s; }
         .d5 { animation-delay: 0.7s; }
-        .d6 { animation-delay: 0.85s; }
         
         .fade-up {
             opacity: 0;
@@ -1560,8 +1622,13 @@
             .footer-top { grid-template-columns: 1fr 1fr; gap: 40px; }
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 1000px) {
             .nav-list { display: none; }
+            .menu-toggle { display: flex; }
+            .btn-cta { display: none; }
+        }
+        
+        @media (max-width: 900px) {
             .gallery-grid { grid-template-columns: repeat(6, 1fr); grid-auto-rows: 90px; }
             .g-a { grid-column: span 6; grid-row: span 3; }
             .g-b, .g-c, .g-d { grid-column: span 3; grid-row: span 2; }
@@ -1584,8 +1651,7 @@
             .fixture-day { grid-column: 1 / -1; }
             .fixture-time { text-align: left; }
             .footer-top { grid-template-columns: 1fr; gap: 40px; }
-            .standings-table thead th:nth-child(2),
-            .standings-table tbody td:nth-child(2) { display: none; }
+            .clubs-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
             .gallery-grid { grid-template-columns: 1fr 1fr; grid-auto-rows: 140px; }
             .g-a, .g-b, .g-c, .g-d, .g-e, .g-f, .g-g, .g-h, .g-i {
                 grid-column: span 2; grid-row: span 2;
@@ -1593,18 +1659,19 @@
         }
         
         @media (max-width: 480px) {
-            .brand-wordmark .fr { font-size: 1.1rem; }
-            .hero-headline { font-size: 4rem; }
+            .brand-wordmark .fr { font-size: 0.85rem; }
+            .hero-headline { font-size: 3.5rem; }
             .hero-actions { flex-direction: column; }
             .btn-hero, .btn-hero-ghost { width: 100%; justify-content: center; border-left: 1px solid var(--line-strong); }
             .btn-hero-ghost { border-top: none; }
-            .marquee-item { font-size: 0.9rem; padding: 0 20px; gap: 20px; }
+            .marquee-item { font-size: 0.85rem; padding: 0 20px; gap: 20px; }
             .cta-btn { padding: 20px 28px; font-size: 0.7rem; }
-            .cta-title { font-size: 2.5rem; }
+            .cta-title { font-size: 2.2rem; }
             .gallery-grid { grid-template-columns: 1fr; }
             .g-a, .g-b, .g-c, .g-d, .g-e, .g-f, .g-g, .g-h, .g-i {
                 grid-column: span 1; grid-row: span 2;
             }
+            .clubs-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -1615,17 +1682,17 @@
         <a href="#" class="brand">
             <div class="brand-shield">L</div>
             <div class="brand-wordmark">
-                <span class="fr">Ligue de Football</span>
-                <span class="en">Est. 1932 · France</span>
+                <span class="fr">Ligue de Football de la Wilaya de Tébessa</span>
+                <span class="en">الرابطة الولائية لكرة القدم · تبسة</span>
             </div>
         </a>
         
         <ul class="nav-list">
             <li><a href="#" class="active">Home</a></li>
+            <li><a href="#clubs">Clubs</a></li>
             <li><a href="#fixtures">Fixtures</a></li>
             <li><a href="#news">News</a></li>
             <li><a href="#gallery">Gallery</a></li>
-            <li><a href="#standings">Standings</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
         
@@ -1633,8 +1700,23 @@
             <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
             <button class="theme-btn" id="themeToggle" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
             <a href="#" class="btn-cta">Sign In</a>
+            <button class="menu-toggle" id="menuToggle" aria-label="Menu"><i class="fas fa-bars"></i></button>
         </div>
     </nav>
+    
+    <!-- ===== MOBILE NAV ===== -->
+    <div class="nav-mobile" id="navMobile">
+        <a href="#" class="active">Home</a>
+        <a href="#clubs">Clubs</a>
+        <a href="#fixtures">Fixtures</a>
+        <a href="#news">News</a>
+        <a href="#gallery">Gallery</a>
+        <a href="#contact">Contact</a>
+        <div class="mobile-tools">
+            <button class="search-trigger" aria-label="Search"><i class="fas fa-search"></i></button>
+            <button class="theme-btn" id="themeToggleMobile" aria-label="Toggle theme"><i class="fas fa-sun"></i></button>
+        </div>
+    </div>
 
     <!-- ===== HERO ===== -->
     <section class="hero">
@@ -1644,13 +1726,13 @@
         
         <div class="hero-content">
             <div class="hero-left">
-                <div class="hero-eyebrow reveal d1">Season 2026 · Matchday 09</div>
+                <div class="hero-eyebrow reveal d1">Season 2026 · Tébessa, Algeria</div>
                 <h1 class="hero-headline reveal d2">
                     Le Beau<br>Jeu
                     <em>the beautiful game</em>
                 </h1>
                 <p class="hero-sub reveal d3">
-                    Twenty clubs. Thirty-eight matchdays. One crown. Follow every moment of France's most storied football league — where legends are written on wet winter pitches.
+                    Eleven clubs. One crown. Follow every moment of the Tébessa Wilaya Football League — where legends are written on the pitches of eastern Algeria.
                 </p>
                 <div class="hero-actions reveal d4">
                     <a href="#" class="btn-hero">
@@ -1669,20 +1751,20 @@
                     <div class="match-feature-date">Saturday · 12 October · 20:45</div>
                     <div class="match-feature-teams">
                         <div class="team-block">
-                            <div class="crest">P</div>
-                            <div class="name">Paris FC</div>
-                            <div class="city">Parc des Princes</div>
+                            <div class="crest">A</div>
+                            <div class="name">Amel Boukhadra</div>
+                            <div class="city">Boukhadra</div>
                         </div>
                         <div class="match-vs">VS</div>
                         <div class="team-block">
                             <div class="crest">M</div>
-                            <div class="name">Marseille</div>
-                            <div class="city">Vélodrome</div>
+                            <div class="name">Mostakbal El Ouinet</div>
+                            <div class="city">El Ouinet</div>
                         </div>
                     </div>
                     <div class="match-feature-meta">
-                        <span><i class="fas fa-trophy"></i> Le Classique</span>
-                        <span><i class="fas fa-fire"></i> Sold Out</span>
+                        <span><i class="fas fa-trophy"></i> Derby</span>
+                        <span><i class="fas fa-fire"></i> Matchday 01</span>
                     </div>
                 </div>
             </div>
@@ -1704,116 +1786,237 @@
     <!-- ===== MARQUEE ===== -->
     <div class="marquee">
         <div class="marquee-track">
-            <span class="marquee-item">Paris FC 3 — 2 Marseille</span>
-            <span class="marquee-item">Monaco Signs Rising Star</span>
-            <span class="marquee-item">Lyon Coach Exclusive</span>
-            <span class="marquee-item">Derby Day Sold Out</span>
-            <span class="marquee-item">Lille Climbs to Fourth</span>
-            <span class="marquee-item">Rennes Stun Nice</span>
-            <span class="marquee-item">Paris FC 3 — 2 Marseille</span>
-            <span class="marquee-item">Monaco Signs Rising Star</span>
-            <span class="marquee-item">Lyon Coach Exclusive</span>
-            <span class="marquee-item">Derby Day Sold Out</span>
-            <span class="marquee-item">Lille Climbs to Fourth</span>
-            <span class="marquee-item">Rennes Stun Nice</span>
+            <span class="marquee-item">11 Clubs Competing</span>
+            <span class="marquee-item">Season 2026 Kicks Off</span>
+            <span class="marquee-item">Boukhadra vs El Ouinet Derby</span>
+            <span class="marquee-item">Tébessa Wilaya League</span>
+            <span class="marquee-item">Algerian Football</span>
+            <span class="marquee-item">11 Clubs Competing</span>
+            <span class="marquee-item">Season 2026 Kicks Off</span>
+            <span class="marquee-item">Boukhadra vs El Ouinet Derby</span>
+            <span class="marquee-item">Tébessa Wilaya League</span>
+            <span class="marquee-item">Algerian Football</span>
         </div>
     </div>
+
+    <!-- ===== CLUBS ===== -->
+    <section class="section clubs" id="clubs">
+        <div class="container">
+            <div class="section-head fade-up">
+                <div class="section-num">01 / Clubs</div>
+                <h2 class="section-title">League <em>Teams</em></h2>
+                <div class="section-meta">11 Clubs<br>Season 2026</div>
+            </div>
+            
+            <div class="clubs-grid">
+                <!-- Club 1: Amel Boukhadra -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">A</div>
+                    <h3 class="club-name">Amel Boukhadra</h3>
+                    <p class="club-city">Boukhadra</p>
+                    <span class="club-badge">أمل بوخضرة</span>
+                </div>
+                
+                <!-- Club 2: Mostakbal El Ouinet -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">M</div>
+                    <h3 class="club-name">Mostakbal El Ouinet</h3>
+                    <p class="club-city">El Ouinet</p>
+                    <span class="club-badge">مستقبل العوينات</span>
+                </div>
+                
+                <!-- Club 3: Amel El Kouif -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">A</div>
+                    <h3 class="club-name">Amel El Kouif</h3>
+                    <p class="club-city">El Kouif</p>
+                    <span class="club-badge">أمل الكويف</span>
+                </div>
+                
+                <!-- Club 4: Mouloudia El Kouif -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">M</div>
+                    <h3 class="club-name">Mouloudia El Kouif</h3>
+                    <p class="club-city">El Kouif</p>
+                    <span class="club-badge">مولودية الكويف</span>
+                </div>
+                
+                <!-- Club 5: Chabab Safsaf El Ousra -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">C</div>
+                    <h3 class="club-name">Chabab Safsaf El Ousra</h3>
+                    <p class="club-city">Safsaf El Ousra</p>
+                    <span class="club-badge">شباب صفصاف الوسرى</span>
+                </div>
+                
+                <!-- Club 6: Roudad Bir Mokkadem -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">R</div>
+                    <h3 class="club-name">Roudad Bir Mokkadem</h3>
+                    <p class="club-city">Bir Mokkadem</p>
+                    <span class="club-badge">رواد بئر مقدم</span>
+                </div>
+                
+                <!-- Club 7: Nasr Sat Khenguetis -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">N</div>
+                    <h3 class="club-name">Nasr Sat Khenguetis</h3>
+                    <p class="club-city">Khenguetis</p>
+                    <span class="club-badge">نصر سطح قنتيس</span>
+                </div>
+                
+                <!-- Club 8: Taraji El Ouenza -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">T</div>
+                    <h3 class="club-name">Taraji El Ouenza</h3>
+                    <p class="club-city">El Ouenza</p>
+                    <span class="club-badge">ترجي الونزة</span>
+                </div>
+                
+                <!-- Club 9: Amel El Ma El Abiod -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">A</div>
+                    <h3 class="club-name">Amel El Ma El Abiod</h3>
+                    <p class="club-city">El Ma El Abiod</p>
+                    <span class="club-badge">أمل الماء الأبيض</span>
+                </div>
+                
+                <!-- Club 10: Wifaq Morsott -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">W</div>
+                    <h3 class="club-name">Wifaq Morsott</h3>
+                    <p class="club-city">Morsott</p>
+                    <span class="club-badge">وفاق مرسط</span>
+                </div>
+                
+                <!-- Club 11: Taraji Bir El Ater -->
+                <div class="club-card fade-up">
+                    <div class="club-crest">T</div>
+                    <h3 class="club-name">Taraji Bir El Ater</h3>
+                    <p class="club-city">Bir El Ater</p>
+                    <span class="club-badge">ترجي بئر العاتر</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- ===== FIXTURES ===== -->
     <section class="section fixtures" id="fixtures">
         <div class="container">
             <div class="section-head fade-up">
-                <div class="section-num">01 / Fixtures</div>
+                <div class="section-num">02 / Fixtures</div>
                 <h2 class="section-title">Upcoming <em>Matches</em></h2>
-                <div class="section-meta">Matchday 09–12<br>October 2026</div>
+                <div class="section-meta">Matchday 01<br>October 2026</div>
             </div>
             
             <div class="fixture-list">
                 <a href="#" class="fixture fade-up">
                     <div class="fixture-day">Sat 12 Oct</div>
-                    <div class="fixture-num">09</div>
+                    <div class="fixture-num">01</div>
                     <div class="fixture-team">
-                        <div class="fixture-crest">P</div>
+                        <div class="fixture-crest">A</div>
                         <div>
-                            <div class="fixture-name">Paris FC</div>
-                            <div class="fixture-sub">1st · 28 pts</div>
+                            <div class="fixture-name">Amel Boukhadra</div>
+                            <div class="fixture-sub">Boukhadra</div>
                         </div>
                     </div>
-                    <div class="fixture-time">20:45</div>
+                    <div class="fixture-time">15:00</div>
                     <div class="fixture-team right">
                         <div class="fixture-crest">M</div>
                         <div>
-                            <div class="fixture-name">Marseille</div>
-                            <div class="fixture-sub">3rd · 22 pts</div>
+                            <div class="fixture-name">Mostakbal El Ouinet</div>
+                            <div class="fixture-sub">El Ouinet</div>
                         </div>
                     </div>
-                    <div class="fixture-venue">Parc des Princes<br>Paris</div>
+                    <div class="fixture-venue">Stade Municipal<br>Boukhadra</div>
                     <div class="fixture-arrow"><i class="fas fa-arrow-right"></i></div>
                 </a>
                 
                 <a href="#" class="fixture fade-up">
-                    <div class="fixture-day">Sun 13 Oct</div>
-                    <div class="fixture-num">09</div>
+                    <div class="fixture-day">Sat 12 Oct</div>
+                    <div class="fixture-num">01</div>
                     <div class="fixture-team">
-                        <div class="fixture-crest">L</div>
+                        <div class="fixture-crest">A</div>
                         <div>
-                            <div class="fixture-name">Lyon</div>
-                            <div class="fixture-sub">5th · 18 pts</div>
+                            <div class="fixture-name">Amel El Kouif</div>
+                            <div class="fixture-sub">El Kouif</div>
                         </div>
                     </div>
-                    <div class="fixture-time">17:00</div>
+                    <div class="fixture-time">15:00</div>
                     <div class="fixture-team right">
                         <div class="fixture-crest">M</div>
                         <div>
-                            <div class="fixture-name">Monaco</div>
-                            <div class="fixture-sub">2nd · 25 pts</div>
+                            <div class="fixture-name">Mouloudia El Kouif</div>
+                            <div class="fixture-sub">El Kouif</div>
                         </div>
                     </div>
-                    <div class="fixture-venue">Groupama Stadium<br>Lyon</div>
+                    <div class="fixture-venue">Stade El Kouif<br>El Kouif</div>
                     <div class="fixture-arrow"><i class="fas fa-arrow-right"></i></div>
                 </a>
                 
                 <a href="#" class="fixture fade-up">
-                    <div class="fixture-day">Fri 18 Oct</div>
-                    <div class="fixture-num">10</div>
+                    <div class="fixture-day">Sat 12 Oct</div>
+                    <div class="fixture-num">01</div>
                     <div class="fixture-team">
-                        <div class="fixture-crest">L</div>
+                        <div class="fixture-crest">T</div>
                         <div>
-                            <div class="fixture-name">Lille</div>
-                            <div class="fixture-sub">4th · 20 pts</div>
+                            <div class="fixture-name">Taraji El Ouenza</div>
+                            <div class="fixture-sub">El Ouenza</div>
                         </div>
                     </div>
-                    <div class="fixture-time">21:00</div>
+                    <div class="fixture-time">15:00</div>
                     <div class="fixture-team right">
-                        <div class="fixture-crest">R</div>
+                        <div class="fixture-crest">A</div>
                         <div>
-                            <div class="fixture-name">Rennes</div>
-                            <div class="fixture-sub">6th · 16 pts</div>
+                            <div class="fixture-name">Amel El Ma El Abiod</div>
+                            <div class="fixture-sub">El Ma El Abiod</div>
                         </div>
                     </div>
-                    <div class="fixture-venue">Stade Pierre-Mauroy<br>Lille</div>
+                    <div class="fixture-venue">Stade El Ouenza<br>El Ouenza</div>
                     <div class="fixture-arrow"><i class="fas fa-arrow-right"></i></div>
                 </a>
                 
                 <a href="#" class="fixture fade-up">
-                    <div class="fixture-day">Sat 19 Oct</div>
-                    <div class="fixture-num">10</div>
+                    <div class="fixture-day">Sat 12 Oct</div>
+                    <div class="fixture-num">01</div>
                     <div class="fixture-team">
                         <div class="fixture-crest">N</div>
                         <div>
-                            <div class="fixture-name">Nice</div>
-                            <div class="fixture-sub">7th · 15 pts</div>
+                            <div class="fixture-name">Nasr Sat Khenguetis</div>
+                            <div class="fixture-sub">Khenguetis</div>
                         </div>
                     </div>
-                    <div class="fixture-time">19:30</div>
+                    <div class="fixture-time">15:00</div>
                     <div class="fixture-team right">
-                        <div class="fixture-crest">L</div>
+                        <div class="fixture-crest">C</div>
                         <div>
-                            <div class="fixture-name">Lens</div>
-                            <div class="fixture-sub">8th · 14 pts</div>
+                            <div class="fixture-name">Chabab Safsaf El Ousra</div>
+                            <div class="fixture-sub">Safsaf El Ousra</div>
                         </div>
                     </div>
-                    <div class="fixture-venue">Allianz Riviera<br>Nice</div>
+                    <div class="fixture-venue">Stade Khenguetis<br>Khenguetis</div>
+                    <div class="fixture-arrow"><i class="fas fa-arrow-right"></i></div>
+                </a>
+                
+                <a href="#" class="fixture fade-up">
+                    <div class="fixture-day">Sat 12 Oct</div>
+                    <div class="fixture-num">01</div>
+                    <div class="fixture-team">
+                        <div class="fixture-crest">R</div>
+                        <div>
+                            <div class="fixture-name">Roudad Bir Mokkadem</div>
+                            <div class="fixture-sub">Bir Mokkadem</div>
+                        </div>
+                    </div>
+                    <div class="fixture-time">15:00</div>
+                    <div class="fixture-team right">
+                        <div class="fixture-crest">T</div>
+                        <div>
+                            <div class="fixture-name">Taraji Bir El Ater</div>
+                            <div class="fixture-sub">Bir El Ater</div>
+                        </div>
+                    </div>
+                    <div class="fixture-venue">Stade Bir Mokkadem<br>Bir Mokkadem</div>
                     <div class="fixture-arrow"><i class="fas fa-arrow-right"></i></div>
                 </a>
             </div>
@@ -1824,7 +2027,7 @@
     <section class="section" id="news">
         <div class="container">
             <div class="section-head fade-up">
-                <div class="section-num">02 / Journal</div>
+                <div class="section-num">03 / Journal</div>
                 <h2 class="section-title">The <em>Latest</em></h2>
                 <div class="section-meta">Stories from<br>around the league</div>
             </div>
@@ -1832,18 +2035,18 @@
             <div class="news-grid">
                 <a href="#" class="news-card feature fade-up">
                     <div class="news-img">
-                        <span class="news-tag">Match Report</span>
-                        <img src="https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Match Report">
+                        <span class="news-tag">Season Preview</span>
+                        <img src="https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Season Preview">
                     </div>
                     <div class="news-body">
                         <div class="news-meta">
-                            <span><i class="fas fa-calendar"></i> 08 Oct</span>
-                            <span><i class="fas fa-user"></i> Antoine Dubois</span>
+                            <span><i class="fas fa-calendar"></i> 01 Oct 2026</span>
+                            <span><i class="fas fa-user"></i> LWF Tébessa</span>
                         </div>
-                        <h3 class="news-title">Paris FC Stun Marseille in Five-Goal Thriller at the Parc</h3>
-                        <p class="news-excerpt">An unforgettable night of football saw the league leaders edge past their fiercest rivals in a dramatic 3-2 victory, with a stoppage-time winner that sent the Parc des Princes into raptures.</p>
+                        <h3 class="news-title">11 Clubs Set for Tébessa Wilaya League Season 2026</h3>
+                        <p class="news-excerpt">The Tébessa Wilaya Football League has registered 11 clubs for the upcoming season, including five new guests. Amel Boukhadra and Mostakbal El Ouinet will kick off the season with a highly anticipated derby.</p>
                         <div class="news-footer">
-                            <span>6 min read</span>
+                            <span>4 min read</span>
                             <span class="news-read">Read Story <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </div>
@@ -1851,17 +2054,17 @@
                 
                 <a href="#" class="news-card fade-up">
                     <div class="news-img">
-                        <span class="news-tag">Transfer</span>
-                        <img src="https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Transfer News">
+                        <span class="news-tag">League News</span>
+                        <img src="https://images.pexels.com/photos/114296/pexels-photo-114296.jpeg?auto=compress&cs=tinysrgb&w=800" alt="League News">
                     </div>
                     <div class="news-body">
                         <div class="news-meta">
-                            <span><i class="fas fa-calendar"></i> 07 Oct</span>
+                            <span><i class="fas fa-calendar"></i> 28 Sep 2026</span>
                         </div>
-                        <h3 class="news-title">Monaco Secure Rising Star on Five-Year Deal</h3>
-                        <p class="news-excerpt">The 19-year-old winger arrives after an impressive breakthrough campaign in the second tier.</p>
+                        <h3 class="news-title">New Season Calendar Announced for Tébessa League</h3>
+                        <p class="news-excerpt">The competition schedule has been finalized with matches set to begin on October 9th across the wilaya.</p>
                         <div class="news-footer">
-                            <span>4 min</span>
+                            <span>3 min</span>
                             <span class="news-read">Read <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </div>
@@ -1869,17 +2072,17 @@
                 
                 <a href="#" class="news-card fade-up">
                     <div class="news-img">
-                        <span class="news-tag">Interview</span>
-                        <img src="https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Interview">
+                        <span class="news-tag">Club Focus</span>
+                        <img src="https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Club Focus">
                     </div>
                     <div class="news-body">
                         <div class="news-meta">
-                            <span><i class="fas fa-calendar"></i> 06 Oct</span>
+                            <span><i class="fas fa-calendar"></i> 25 Sep 2026</span>
                         </div>
-                        <h3 class="news-title">"We're Building Something Special" — Lyon Coach</h3>
-                        <p class="news-excerpt">In an exclusive sit-down, the manager discusses tactics, ambition, and the road ahead.</p>
+                        <h3 class="news-title">Amel Boukhadra Eyes Promotion After Strong Season</h3>
+                        <p class="news-excerpt">The club finished last season at the top of the table but missed promotion on goal difference.</p>
                         <div class="news-footer">
-                            <span>8 min</span>
+                            <span>5 min</span>
                             <span class="news-read">Read <i class="fas fa-arrow-right"></i></span>
                         </div>
                     </div>
@@ -1892,9 +2095,9 @@
     <section class="section gallery" id="gallery">
         <div class="container">
             <div class="section-head fade-up">
-                <div class="section-num">03 / Archive</div>
+                <div class="section-num">04 / Archive</div>
                 <h2 class="section-title">Matchday <em>Moments</em></h2>
-                <div class="section-meta">Photography<br>from the touchline</div>
+                <div class="section-meta">Photography<br>from Tébessa</div>
             </div>
             
             <div class="gallery-grid">
@@ -1902,7 +2105,7 @@
                     <img src="https://images.pexels.com/photos/1263426/pexels-photo-1263426.jpeg?auto=compress&cs=tinysrgb&w=1200" alt="Derby">
                     <div class="g-overlay">
                         <div class="g-title">Derby Day Drama</div>
-                        <div class="g-sub">Paris FC vs Marseille</div>
+                        <div class="g-sub">Boukhadra vs El Ouinet</div>
                     </div>
                 </div>
                 <div class="g-item g-b fade-up">
@@ -1916,7 +2119,7 @@
                     <img src="https://images.pexels.com/photos/1263348/pexels-photo-1263348.jpeg?auto=compress&cs=tinysrgb&w=800" alt="Stadium">
                     <div class="g-overlay">
                         <div class="g-title">The Fortress</div>
-                        <div class="g-sub">Parc des Princes</div>
+                        <div class="g-sub">Stade Municipal</div>
                     </div>
                 </div>
                 <div class="g-item g-d fade-up">
@@ -1965,64 +2168,6 @@
         </div>
     </section>
 
-    <!-- ===== STANDINGS ===== -->
-    <section class="section standings" id="standings">
-        <div class="container">
-            <div class="section-head fade-up">
-                <div class="section-num">04 / Table</div>
-                <h2 class="section-title">League <em>Standings</em></h2>
-                <div class="section-meta">After Matchday 08<br>2026 Season</div>
-            </div>
-            
-            <table class="standings-table fade-up">
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Club</th>
-                        <th>P</th>
-                        <th>W</th>
-                        <th>D</th>
-                        <th>L</th>
-                        <th>GD</th>
-                        <th>Pts</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td><div class="st-team"><div class="st-crest">P</div><span class="st-name">Paris FC</span></div></td>
-                        <td>8</td><td>9</td><td>1</td><td>0</td><td>+18</td><td>28</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td><div class="st-team"><div class="st-crest">M</div><span class="st-name">Monaco</span></div></td>
-                        <td>8</td><td>8</td><td>1</td><td>1</td><td>+14</td><td>25</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td><div class="st-team"><div class="st-crest">M</div><span class="st-name">Marseille</span></div></td>
-                        <td>8</td><td>7</td><td>1</td><td>2</td><td>+11</td><td>22</td>
-                    </tr>
-                    <tr>
-                        <td>4</td>
-                        <td><div class="st-team"><div class="st-crest">L</div><span class="st-name">Lille</span></div></td>
-                        <td>8</td><td>6</td><td>2</td><td>2</td><td>+8</td><td>20</td>
-                    </tr>
-                    <tr>
-                        <td>5</td>
-                        <td><div class="st-team"><div class="st-crest">L</div><span class="st-name">Lyon</span></div></td>
-                        <td>8</td><td>5</td><td>3</td><td>2</td><td>+6</td><td>18</td>
-                    </tr>
-                    <tr>
-                        <td>6</td>
-                        <td><div class="st-team"><div class="st-crest">R</div><span class="st-name">Rennes</span></div></td>
-                        <td>8</td><td>4</td><td>4</td><td>2</td><td>+4</td><td>16</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </section>
-
     <!-- ===== CTA ===== -->
     <section class="cta">
         <div class="cta-inner">
@@ -2045,11 +2190,11 @@
                     <a href="#" class="brand">
                         <div class="brand-shield">L</div>
                         <div class="brand-wordmark">
-                            <span class="fr">Ligue de Football</span>
-                            <span class="en">Est. 1932 · France</span>
+                            <span class="fr">Ligue de Football de la Wilaya de Tébessa</span>
+                            <span class="en">الرابطة الولائية لكرة القدم · تبسة</span>
                         </div>
                     </a>
-                    <p>The official home of France's most storied football league. Follow us for live scores, match reports, and stories from the beautiful game.</p>
+                    <p>The official home of the Tébessa Wilaya Football League. Follow us for live scores, match reports, and stories from the beautiful game.</p>
                     <div class="footer-socials">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
                         <a href="#" aria-label="Twitter"><i class="fab fa-x-twitter"></i></a>
@@ -2060,18 +2205,18 @@
                 
                 <div class="footer-col">
                     <h4>The League</h4>
-                    <a href="#">Fixtures</a>
+                    <a href="#fixtures">Fixtures</a>
+                    <a href="#clubs">Clubs</a>
                     <a href="#">Standings</a>
                     <a href="#">Statistics</a>
-                    <a href="#">Clubs</a>
                 </div>
                 
                 <div class="footer-col">
                     <h4>Editorial</h4>
-                    <a href="#">Match Reports</a>
+                    <a href="#news">Match Reports</a>
                     <a href="#">Interviews</a>
                     <a href="#">Features</a>
-                    <a href="#">Gallery</a>
+                    <a href="#gallery">Gallery</a>
                 </div>
                 
                 <div class="footer-col">
@@ -2084,7 +2229,7 @@
             </div>
             
             <div class="footer-bottom">
-                <p>© 2026 Ligue de Football. All rights reserved.</p>
+                <p>© 2026 Ligue de Football de la Wilaya de Tébessa. All rights reserved.</p>
                 <div class="footer-bottom-links">
                     <a href="#">Privacy</a>
                     <a href="#">Terms</a>
@@ -2098,18 +2243,47 @@
     <script>
         // Theme toggle
         const themeToggle = document.getElementById('themeToggle');
+        const themeToggleMobile = document.getElementById('themeToggleMobile');
         const themeIcon = themeToggle.querySelector('i');
+        const themeIconMobile = themeToggleMobile.querySelector('i');
         const htmlEl = document.documentElement;
         
         const saved = localStorage.getItem('theme') || 'dark';
         htmlEl.setAttribute('data-theme', saved);
-        themeIcon.className = saved === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+        updateThemeIcons(saved);
         
-        themeToggle.addEventListener('click', () => {
+        function updateThemeIcons(theme) {
+            const iconClass = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            themeIcon.className = iconClass;
+            themeIconMobile.className = iconClass;
+        }
+        
+        function toggleTheme() {
             const next = htmlEl.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
             htmlEl.setAttribute('data-theme', next);
             localStorage.setItem('theme', next);
-            themeIcon.className = next === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            updateThemeIcons(next);
+        }
+        
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+        
+        // Mobile menu toggle
+        const menuToggle = document.getElementById('menuToggle');
+        const navMobile = document.getElementById('navMobile');
+        
+        menuToggle.addEventListener('click', () => {
+            navMobile.classList.toggle('open');
+            const icon = menuToggle.querySelector('i');
+            icon.className = navMobile.classList.contains('open') ? 'fas fa-times' : 'fas fa-bars';
+        });
+        
+        // Close mobile menu on link click
+        navMobile.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMobile.classList.remove('open');
+                menuToggle.querySelector('i').className = 'fas fa-bars';
+            });
         });
         
         // Navbar scroll
